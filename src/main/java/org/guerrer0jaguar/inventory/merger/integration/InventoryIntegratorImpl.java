@@ -1,8 +1,6 @@
 package org.guerrer0jaguar.inventory.merger.integration;
 
-import java.beans.Beans;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
