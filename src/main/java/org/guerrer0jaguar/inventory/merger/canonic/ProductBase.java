@@ -1,4 +1,4 @@
-package org.guerrer0jaguar.inventory.merger.integration;
+package org.guerrer0jaguar.inventory.merger.canonic;
 
 import java.util.List;
 

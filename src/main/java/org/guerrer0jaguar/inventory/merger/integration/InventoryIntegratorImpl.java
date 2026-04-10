@@ -30,10 +30,27 @@ public class InventoryIntegratorImpl  implements InventoryIntegrator {
         List<ProductA> firstList = providerA.getProducts();
         List<ProductB> secondList = providerB.getProducts();
         
-        List<Product> fullList = new ArrayList<>();
+        
+        List<Product> fullList = new ArrayList<>(canonizeList(firstList));
         
         
         return fullList;
+    }
+
+
+
+    private List<Product> canonizeList(
+            List<ProductA> firstList) {
+        List<Product> canonizedList = new ArrayList<>();
+        firstList.stream().map(this::canonizeProductA);
+        
+        return new ArrayList<>();
+    }
+
+    private Product canonizeProductA(
+            ProductA producta1) {
+        
+        return new Product();
     }
 
  

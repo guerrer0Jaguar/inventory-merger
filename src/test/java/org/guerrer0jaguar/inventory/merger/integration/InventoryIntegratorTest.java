@@ -37,5 +37,4 @@ class InventoryIntegratorTest {
         InventoryIntegrator integrator = new InventoryIntegratorImpl(providerA, providerB);
         assertNotNull(integrator.getProductsMerged());
     }
-
 }

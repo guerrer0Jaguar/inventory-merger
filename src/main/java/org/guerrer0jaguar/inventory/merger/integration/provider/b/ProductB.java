@@ -1,7 +1,7 @@
 package org.guerrer0jaguar.inventory.merger.integration.provider.b;
 
 
-import org.guerrer0jaguar.inventory.merger.integration.ProductBase;
+import org.guerrer0jaguar.inventory.merger.canonic.ProductBase;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
