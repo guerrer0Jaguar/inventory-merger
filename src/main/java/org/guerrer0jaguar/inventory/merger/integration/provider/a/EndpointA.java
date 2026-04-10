@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient("providerA")
-public interface EndPointA {
+public interface EndpointA {
 
     @RequestMapping( method = RequestMethod.GET, value = "/products")
     List<ProductA> getProducts();

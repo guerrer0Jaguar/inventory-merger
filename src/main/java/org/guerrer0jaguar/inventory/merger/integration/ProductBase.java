@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ProductBase {
     
-    protected Integer id;
+    protected Long id;
 
     protected String title;
 
