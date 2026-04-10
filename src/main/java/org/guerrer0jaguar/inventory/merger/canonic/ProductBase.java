@@ -19,7 +19,7 @@ public class ProductBase {
 
     protected Double discountPercentage;
 
-    protected Integer stock = 0;
+    protected Long stock = 0L;
 
     protected List<String> tags;
 

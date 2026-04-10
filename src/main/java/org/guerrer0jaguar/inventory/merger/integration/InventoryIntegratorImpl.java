@@ -1,6 +1,8 @@
 package org.guerrer0jaguar.inventory.merger.integration;
 
+import java.beans.Beans;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,15 +35,14 @@ public class InventoryIntegratorImpl  implements InventoryIntegrator {
         List<ProductB> secondList = providerB.getProducts();
         
         
-        List<Product> fullList = new ArrayList<>(canonizeList(firstList));
-        
+        List<Product> fullList = new ArrayList<>(canonizeListA(firstList));
+        fullList.addAll(canonizeListB(secondList));
         
         return fullList;
     }
 
 
-
-    private List<Product> canonizeList(
+    private List<Product> canonizeListA(
             List<ProductA> firstList) {
        
         return firstList
@@ -59,4 +60,25 @@ public class InventoryIntegratorImpl  implements InventoryIntegrator {
         canonized.setProvider(ProviderSource.A);
         return canonized;                
     } 
+    
+    private List<Product> canonizeListB(
+            List<ProductB> secondList) {
+        
+        return secondList
+                .stream()
+                .map(this::canonizeProductB)
+                .collect(Collectors.toList());
+    }
+
+    private Product canonizeProductB(
+            ProductB productB) {
+        
+        Product canonized = new Product();
+        BeanUtils.copyProperties(productB, canonized);
+        canonized.setProvider(ProviderSource.B);
+        return canonized;
+    }
+    
+    
+
 }
