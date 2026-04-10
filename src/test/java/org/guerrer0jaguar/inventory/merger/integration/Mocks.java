@@ -8,6 +8,7 @@ import org.guerrer0jaguar.inventory.merger.integration.provider.a.ProductA;
 import org.guerrer0jaguar.inventory.merger.integration.provider.a.Rating;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.EndpointB;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.ProductB;
+import org.guerrer0jaguar.inventory.merger.integration.provider.b.ProductBResponseWrapper;
 
 final class Mocks {
 
@@ -40,7 +41,7 @@ final class Mocks {
         EndpointB providerB = new EndpointB() {
 
             @Override
-            public List<ProductB> getProducts() {
+            public ProductBResponseWrapper getProducts(String header) {
                 ProductB pr = new ProductB();
                 pr.setId(21L);
                 pr.setTitle("Product from source B");
@@ -49,10 +50,12 @@ final class Mocks {
                 List<ProductB> products = new ArrayList<>();
                 products.add(pr);
 
-                return products;
+                ProductBResponseWrapper wrapper = new ProductBResponseWrapper();
+                wrapper.setProducts(products);
+                
+                return wrapper;
             }
         };
         return providerB;
     }
-
 }

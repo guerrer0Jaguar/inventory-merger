@@ -11,43 +11,64 @@ import org.guerrer0jaguar.inventory.merger.integration.provider.a.EndpointA;
 import org.guerrer0jaguar.inventory.merger.integration.provider.a.ProductA;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.EndpointB;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.ProductB;
+import org.guerrer0jaguar.inventory.merger.integration.provider.b.ProductBResponseWrapper;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
-public class InventoryIntegratorImpl  implements InventoryIntegrator {
-    
+import feign.FeignException;
+import lombok.extern.slf4j.Slf4j;
+
+@Component
+@Slf4j
+public class InventoryIntegratorImpl implements InventoryIntegrator {
+
     private final EndpointA providerA;
     private final EndpointB providerB;
 
-    
-   
-    public InventoryIntegratorImpl(EndpointA providerA, EndpointB providerB) {        
+    public InventoryIntegratorImpl(EndpointA providerA, EndpointB providerB) {
         this.providerA = providerA;
         this.providerB = providerB;
     }
 
-
-
     @Override
     public List<Product> getProductsMerged() {
-        List<ProductA> firstList = providerA.getProducts();
-        List<ProductB> secondList = providerB.getProducts();
-        
-        
+        List<ProductA> firstList = fetchProductsFromProviderA();
+        List<ProductB> secondList = fetchProductsFromProviderB();
+
         List<Product> fullList = new ArrayList<>(canonizeListA(firstList));
         fullList.addAll(canonizeListB(secondList));
-        
+
         return fullList;
     }
 
+    private List<ProductA> fetchProductsFromProviderA() {
+        
+        try {
+            return providerA.getProducts();
+        } catch (FeignException e) {            
+            log.error("An error occurred when fetching products from provider A: ", e);
+            return new ArrayList<>();
+        }
+    }
+    
+    private List<ProductB> fetchProductsFromProviderB() {
+        try {
+            ProductBResponseWrapper wrapper = providerB.getProducts("curl/8.5.0");
+            return wrapper.getProducts();
+        } catch (FeignException e) {
+            log.error("An error occurred when fetching products from provider B: ", e);
+            return new ArrayList<>();
+        }
+    }
 
     private List<Product> canonizeListA(
             List<ProductA> firstList) {
-       
+
         return firstList
-            .stream()
-            .map(this::canonizeProductA)
-            .collect(Collectors.toList());
-        
+                .stream()
+                .map(this::canonizeProductA)
+                .collect(Collectors.toList());
+
     }
 
     private Product canonizeProductA(
@@ -56,12 +77,12 @@ public class InventoryIntegratorImpl  implements InventoryIntegrator {
         BeanUtils.copyProperties(productA, canonized);
         canonized.setRating(productA.getRating().getCount());
         canonized.setProvider(ProviderSource.A);
-        return canonized;                
-    } 
-    
+        return canonized;
+    }
+
     private List<Product> canonizeListB(
             List<ProductB> secondList) {
-        
+
         return secondList
                 .stream()
                 .map(this::canonizeProductB)
@@ -70,13 +91,10 @@ public class InventoryIntegratorImpl  implements InventoryIntegrator {
 
     private Product canonizeProductB(
             ProductB productB) {
-        
+
         Product canonized = new Product();
         BeanUtils.copyProperties(productB, canonized);
         canonized.setProvider(ProviderSource.B);
         return canonized;
     }
-    
-    
-
 }

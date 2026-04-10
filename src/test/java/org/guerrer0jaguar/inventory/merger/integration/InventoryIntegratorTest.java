@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 class InventoryIntegratorTest {
 
-   
     @Test
     void getProducts() {
 

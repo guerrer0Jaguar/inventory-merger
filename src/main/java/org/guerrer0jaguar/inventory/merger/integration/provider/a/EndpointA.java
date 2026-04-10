@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient("providerA")
+@FeignClient(name = "providerA", url = "${feign.client.config.providerA.url}")
 public interface EndpointA {
 
     @RequestMapping( method = RequestMethod.GET, value = "/products")
