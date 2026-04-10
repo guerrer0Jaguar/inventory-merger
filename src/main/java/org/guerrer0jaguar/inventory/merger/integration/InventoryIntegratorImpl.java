@@ -2,14 +2,16 @@ package org.guerrer0jaguar.inventory.merger.integration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.guerrer0jaguar.inventory.merger.canonic.InventoryIntegrator;
 import org.guerrer0jaguar.inventory.merger.canonic.Product;
+import org.guerrer0jaguar.inventory.merger.canonic.ProviderSource;
 import org.guerrer0jaguar.inventory.merger.integration.provider.a.EndpointA;
 import org.guerrer0jaguar.inventory.merger.integration.provider.a.ProductA;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.EndpointB;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.ProductB;
+import org.springframework.beans.BeanUtils;
 
 public class InventoryIntegratorImpl  implements InventoryIntegrator {
     
@@ -41,17 +43,20 @@ public class InventoryIntegratorImpl  implements InventoryIntegrator {
 
     private List<Product> canonizeList(
             List<ProductA> firstList) {
-        List<Product> canonizedList = new ArrayList<>();
-        firstList.stream().map(this::canonizeProductA);
+       
+        return firstList
+            .stream()
+            .map(this::canonizeProductA)
+            .collect(Collectors.toList());
         
-        return new ArrayList<>();
     }
 
     private Product canonizeProductA(
-            ProductA producta1) {
-        
-        return new Product();
-    }
-
- 
+            ProductA productA) {
+        Product canonized = new Product();
+        BeanUtils.copyProperties(productA, canonized);
+        canonized.setRating(productA.getRating().getCount());
+        canonized.setProvider(ProviderSource.A);
+        return canonized;                
+    } 
 }

@@ -8,5 +8,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 public class ProductA extends ProductBase {
-
+    private Rating rating;
 }
