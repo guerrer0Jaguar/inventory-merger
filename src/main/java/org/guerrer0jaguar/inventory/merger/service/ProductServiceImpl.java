@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
         return productsSaved;
     }
 
-    private boolean isNotSaved(
+    boolean isNotSaved(
             Product toFind) {
         Long externalId = toFind.getExternalId();
         ProviderSource provider = toFind.getProvider();

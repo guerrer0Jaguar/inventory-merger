@@ -1,8 +1,17 @@
 
+server:
+  servlet:
+    context-path: /api/v1
+
 spring:
   h2:
     console:
-      enabled:true
+      enabled: true
+  task:
+    scheduling:
+      enabled: false
+      thread-name-prefix: Product-Sync-
+      product-sync-fixed-rate: 20000
 
 feign:
   client:

@@ -9,8 +9,9 @@ spring:
       enabled: true
   task:
     scheduling:
+      enabled: true
       thread-name-prefix: Product-Sync-
-      product-sync-fixed-rate: 20000
+      product-sync-fixed-rate: 600000
 
 feign:
   client:
