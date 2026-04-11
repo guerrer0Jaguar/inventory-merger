@@ -1,4 +1,7 @@
 
+server:
+  servlet:
+    context-path: /api/v1
 
 spring:
   h2:
