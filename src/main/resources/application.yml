@@ -7,6 +7,10 @@ spring:
   h2:
     console:
       enabled: true
+  task:
+    scheduling:
+      thread-name-prefix: Product-Sync-
+      product-sync-fixed-rate: 20000
 
 feign:
   client:
