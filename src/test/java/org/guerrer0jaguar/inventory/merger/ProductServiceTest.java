@@ -2,6 +2,7 @@ package org.guerrer0jaguar.inventory.merger;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -19,9 +20,14 @@ class ProductServiceTest {
 
     @Test
     void testSyncronizeProducts() {
+        
         List<Product> products = service.syncronizeProducts();
         assertNotNull(products);
         assertFalse(products.isEmpty());
+        
+        List<Product> anotherSave = service.syncronizeProducts();
+        assertNotNull(anotherSave);
+        assertTrue(anotherSave.isEmpty());
     }
 
 }
