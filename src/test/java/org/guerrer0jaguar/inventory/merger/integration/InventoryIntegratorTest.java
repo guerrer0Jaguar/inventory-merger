@@ -36,7 +36,7 @@ class InventoryIntegratorTest {
         assertTrue(firstProduct.getId().equals(1L));
         assertTrue(firstProduct.getRating().equals(RATING_A));
         assertTrue(firstProduct.getStock().longValue() == DEFAULT_STOCK_FROM_A);
-        assertTrue(firstProduct.getProvider().equals(ProviderSource.A));
+        assertTrue(firstProduct.getProvider().equals(ProviderSource.ProviderA));
     }
 
     private void validateProductB(
@@ -45,6 +45,6 @@ class InventoryIntegratorTest {
         assertTrue(secondProduct.getId().equals(21L));
         assertTrue(secondProduct.getRating().equals(RATING_B));
         assertTrue(secondProduct.getStock().longValue() == STOCK_FROM_B);
-        assertTrue(secondProduct.getProvider().equals(ProviderSource.B));
+        assertTrue(secondProduct.getProvider().equals(ProviderSource.ProviderB));
     }
 }

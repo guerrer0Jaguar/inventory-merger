@@ -76,7 +76,8 @@ public class InventoryIntegratorImpl implements InventoryIntegrator {
         Product canonized = new Product();
         BeanUtils.copyProperties(productA, canonized);
         canonized.setRating(productA.getRating().getCount());
-        canonized.setProvider(ProviderSource.A);
+        canonized.setProvider(ProviderSource.ProviderA);
+        canonized.setExternalId(productA.getId());
         return canonized;
     }
 
@@ -94,7 +95,8 @@ public class InventoryIntegratorImpl implements InventoryIntegrator {
 
         Product canonized = new Product();
         BeanUtils.copyProperties(productB, canonized);
-        canonized.setProvider(ProviderSource.B);
+        canonized.setProvider(ProviderSource.ProviderB);
+        canonized.setExternalId(productB.getId());
         return canonized;
     }
 }

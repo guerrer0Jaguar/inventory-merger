@@ -1,4 +1,4 @@
-package org.guerrer0jaguar.inventory.merger.canonic;
+package org.guerrer0jaguar.inventory.merger.integration;
 
 import lombok.Data;
 
