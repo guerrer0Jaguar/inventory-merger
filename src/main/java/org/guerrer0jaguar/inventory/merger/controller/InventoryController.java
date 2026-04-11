@@ -1,8 +1,10 @@
-package org.guerrer0jaguar.inventory.merger;
+package org.guerrer0jaguar.inventory.merger.controller;
 
 import java.util.List;
 
+import org.guerrer0jaguar.inventory.merger.ReestockRequest;
 import org.guerrer0jaguar.inventory.merger.canonic.Product;
+import org.guerrer0jaguar.inventory.merger.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
