@@ -20,7 +20,7 @@ final class Mocks {
     static EndpointA createMockProviderA() {
         EndpointA providerA = new EndpointA() {
             @Override
-            public List<ProductA> getProducts() {
+            public List<ProductA> getProducts(String userAgent) {
                 ProductA pr = new ProductA();
                 pr.setId(1L);
                 pr.setTitle("Product from source A");
@@ -41,7 +41,7 @@ final class Mocks {
         EndpointB providerB = new EndpointB() {
 
             @Override
-            public ProductBResponseWrapper getProducts(String header) {
+            public ProductBResponseWrapper getProducts(String userAgent) {
                 ProductB pr = new ProductB();
                 pr.setId(21L);
                 pr.setTitle("Product from source B");

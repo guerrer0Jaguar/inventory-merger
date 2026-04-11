@@ -13,6 +13,7 @@ import org.guerrer0jaguar.inventory.merger.integration.provider.b.EndpointB;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.ProductB;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.ProductBResponseWrapper;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import feign.FeignException;
@@ -21,6 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class InventoryIntegratorImpl implements InventoryIntegrator {
+    
+    @Value("${feign.client.config.default.user-agent}")    
+    private String userAgent;
 
     private final EndpointA providerA;
     private final EndpointB providerB;
@@ -44,7 +48,7 @@ public class InventoryIntegratorImpl implements InventoryIntegrator {
     private List<ProductA> fetchProductsFromProviderA() {
         
         try {
-            return providerA.getProducts();
+            return providerA.getProducts(userAgent);
         } catch (FeignException e) {            
             log.error("An error occurred when fetching products from provider A: ", e);
             return new ArrayList<>();
@@ -53,7 +57,7 @@ public class InventoryIntegratorImpl implements InventoryIntegrator {
     
     private List<ProductB> fetchProductsFromProviderB() {
         try {
-            ProductBResponseWrapper wrapper = providerB.getProducts("curl/8.5.0");
+            ProductBResponseWrapper wrapper = providerB.getProducts(userAgent);
             return wrapper.getProducts();
         } catch (FeignException e) {
             log.error("An error occurred when fetching products from provider B: ", e);
