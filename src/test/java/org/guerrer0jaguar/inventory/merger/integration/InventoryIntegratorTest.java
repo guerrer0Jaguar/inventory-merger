@@ -3,7 +3,6 @@ package org.guerrer0jaguar.inventory.merger.integration;
 import static org.guerrer0jaguar.inventory.merger.integration.Mocks.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
 import java.util.List;
 
 import org.guerrer0jaguar.inventory.merger.canonic.InventoryIntegrator;
