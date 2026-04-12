@@ -3,6 +3,10 @@ server:
   servlet:
     context-path: /api/v1
 
+logging:
+  file:
+    name: inventory-merger.log
+
 spring:
   h2:
     console:
