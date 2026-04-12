@@ -32,8 +32,7 @@ public class ProductServiceImpl implements ProductService {
         this.integrator = integrator;
     }
 
-    @Scheduled(fixedRateString = "${spring.task.scheduling.product-sync-fixed-rate}")
-    @Transactional
+    @Scheduled(fixedRateString = "${spring.task.scheduling.product-sync-fixed-rate}")    
     @Override    
     public List<Product> syncronizeProducts() {
         log.info("starting...");

@@ -10,7 +10,7 @@ public class ProductFilterSpecification {
         return (
                 root,
                 query,
-                criteria) -> criteria.isNotNull(root.get("id"));
+                criteria) -> criteria.isNotNull(root.get("canonicId"));
     }
 
     public static Specification<Product> ratingIsGreaterThan(

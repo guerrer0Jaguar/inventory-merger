@@ -32,7 +32,7 @@ class InventoryIntegratorTest {
     private void validateProductA(
             List<Product> productsMerged) {
         Product firstProduct = productsMerged.get(0);
-        assertTrue(firstProduct.getId().equals(1L));
+        assertNull(firstProduct.getCanonicId());
         assertTrue(firstProduct.getRating().equals(RATING_A));
         assertTrue(firstProduct.getStock().longValue() == DEFAULT_STOCK_FROM_A);
         assertTrue(firstProduct.getProvider().equals(ProviderSource.ProviderA));
@@ -41,7 +41,7 @@ class InventoryIntegratorTest {
     private void validateProductB(
             List<Product> productsMerged) {
         Product secondProduct = productsMerged.get(1);
-        assertTrue(secondProduct.getId().equals(21L));
+        assertNull(secondProduct.getCanonicId());
         assertTrue(secondProduct.getRating().equals(RATING_B));
         assertTrue(secondProduct.getStock().longValue() == STOCK_FROM_B);
         assertTrue(secondProduct.getProvider().equals(ProviderSource.ProviderB));
