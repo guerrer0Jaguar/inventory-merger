@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.guerrer0jaguar.inventory.merger.canonic.InventoryIntegrator;
 import org.guerrer0jaguar.inventory.merger.canonic.Product;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@Disabled("it tests the real connection to the providers!! ")
 class InventoryIntegrator_ConnectionTest {
 
     @Autowired
@@ -23,5 +23,4 @@ class InventoryIntegrator_ConnectionTest {
         assertNotNull(products);
         assertFalse(products.isEmpty());
     }
-
 }
