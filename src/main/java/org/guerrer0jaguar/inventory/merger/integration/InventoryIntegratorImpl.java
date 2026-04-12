@@ -9,7 +9,6 @@ import org.guerrer0jaguar.inventory.merger.canonic.Product;
 import org.guerrer0jaguar.inventory.merger.canonic.ProviderSource;
 import org.guerrer0jaguar.inventory.merger.integration.provider.a.EndpointA;
 import org.guerrer0jaguar.inventory.merger.integration.provider.a.ProductA;
-import org.guerrer0jaguar.inventory.merger.integration.provider.a.ProductAResponseWrapper;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.EndpointB;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.ProductB;
 import org.guerrer0jaguar.inventory.merger.integration.provider.b.ProductBResponseWrapper;
@@ -48,9 +47,8 @@ public class InventoryIntegratorImpl implements InventoryIntegrator {
 
     private List<ProductA> fetchProductsFromProviderA() {
         
-        try {
-            ProductAResponseWrapper wrapper = providerA.getProducts(userAgent);
-            return wrapper.getProducts();
+        try {            
+            return  providerA.getProducts(userAgent);
         } catch (FeignException e) {            
             log.error("An error occurred when fetching products from provider A: ", e);
             return new ArrayList<>();
@@ -84,6 +82,7 @@ public class InventoryIntegratorImpl implements InventoryIntegrator {
         canonized.setRating(productA.getRating().getCount());
         canonized.setProvider(ProviderSource.ProviderA);
         canonized.setExternalId(productA.getId());
+        
         return canonized;
     }
 

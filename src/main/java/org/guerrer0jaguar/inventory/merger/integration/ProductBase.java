@@ -8,4 +8,6 @@ public class ProductBase {
     protected Long id;    
     protected String title;
     protected Double price;    
+    protected String description;
+    protected String category;
 }

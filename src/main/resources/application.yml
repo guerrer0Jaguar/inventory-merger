@@ -8,6 +8,14 @@ logging:
     name: inventory-merger.log
 
 spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 100
   h2:
     console:
       enabled: true
@@ -15,6 +23,7 @@ spring:
     scheduling:
       enabled: true
       thread-name-prefix: Product-Sync-
+      #time in miliseconds
       product-sync-fixed-rate: 600000
 
 feign:

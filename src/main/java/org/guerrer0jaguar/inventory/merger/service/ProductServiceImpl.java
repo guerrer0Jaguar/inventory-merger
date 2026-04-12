@@ -33,7 +33,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Scheduled(fixedRateString = "${spring.task.scheduling.product-sync-fixed-rate}")
-    @Override
+    @Transactional
+    @Override    
     public List<Product> syncronizeProducts() {
         log.info("starting...");
         List<Product> productsMerged = integrator.getProductsMerged();
@@ -44,11 +45,9 @@ public class ProductServiceImpl implements ProductService {
                 .filter(this::isNotSaved)
                 .collect(Collectors.toList());
 
-        List<Product> productsSaved = productsFiltered
-                .stream()
-                .map(pr -> repository.save(pr))
-                .collect(Collectors.toList());
-
+        List<Product> productsSaved = 
+                repository.saveAll(productsFiltered);
+    
         log.info("saved: {}", productsSaved.size());
 
         return productsSaved;

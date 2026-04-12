@@ -51,8 +51,4 @@ public class ProductB extends ProductBase {
     
     private Double discountPercentage;
     
-    private String description;
-
-    private String category;
-
 }
