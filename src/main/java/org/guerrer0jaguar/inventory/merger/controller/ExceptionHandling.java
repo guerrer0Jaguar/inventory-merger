@@ -15,24 +15,24 @@ import lombok.extern.slf4j.Slf4j;
 public class ExceptionHandling {
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorMessage> responseWithBadRequest(
+    public ResponseEntity<CustomHTTPmessage> responseWithBadRequest(
             IllegalArgumentException ex) {
         logError(ex);
-        ErrorMessage message = new ErrorMessage(HttpStatus.BAD_REQUEST.value(),
+        CustomHTTPmessage message = new CustomHTTPmessage(HttpStatus.BAD_REQUEST.value(),
                 ex.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({ RuntimeException.class, Exception.class })
-    public ResponseEntity<ErrorMessage> handleExceptions(
+    public ResponseEntity<CustomHTTPmessage> handleExceptions(
             Exception ex,
             WebRequest request) {
         logError(ex);
-        ErrorMessage message = new ErrorMessage(
+        CustomHTTPmessage message = new CustomHTTPmessage(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "An Internal error ocurred", LocalDateTime.now());
 
-        return new ResponseEntity<ErrorMessage>(message,
+        return new ResponseEntity<CustomHTTPmessage>(message,
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

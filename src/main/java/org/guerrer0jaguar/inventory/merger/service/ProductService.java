@@ -10,7 +10,7 @@ public interface ProductService {
 
     public List<Product> syncronizeProducts();
 
-    public void reestock(
+    public long reestock(
             ReestockRequest request);
     
     public List<Product> findProducts(ProductFilter filter);

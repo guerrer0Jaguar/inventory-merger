@@ -65,12 +65,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void reestock(
+    public long reestock(
             ReestockRequest request) {
+        
         long updated = repository
                 .updateStock(request.getStock(), request.getStockToFind());
-
         log.info("Reestock operation, products updated: {}", updated);
+        return updated;
     }
 
     @Override

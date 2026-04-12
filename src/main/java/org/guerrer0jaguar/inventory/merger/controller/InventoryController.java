@@ -1,5 +1,6 @@
 package org.guerrer0jaguar.inventory.merger.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,6 +9,8 @@ import org.guerrer0jaguar.inventory.merger.canonic.Product;
 import org.guerrer0jaguar.inventory.merger.canonic.ProductFilter;
 import org.guerrer0jaguar.inventory.merger.canonic.ProviderSource;
 import org.guerrer0jaguar.inventory.merger.service.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,9 +62,15 @@ public class InventoryController {
         return service.syncronizeProducts();
     }
     
-    @PatchMapping("restock-zeros")
-    public void reestock(@RequestBody ReestockRequest request) {
+    @PatchMapping("/inventory/restock-zeros")
+    public CustomHTTPmessage reestock(
+            @RequestBody ReestockRequest request) {
         request.setStockToFind(STOCK_TO_FIX);
-        service.reestock(request);
+        long updated = service.reestock(request);
+        String message = "Products updated: " + updated;
+
+        return new CustomHTTPmessage(HttpStatus.OK.value(), message,
+                LocalDateTime.now());
+
     }
 }
