@@ -1,18 +1,20 @@
 package org.guerrer0jaguar.inventory.merger.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.guerrer0jaguar.inventory.merger.ReestockRequest;
 import org.guerrer0jaguar.inventory.merger.canonic.Product;
+import org.guerrer0jaguar.inventory.merger.canonic.ProductFilter;
+import org.guerrer0jaguar.inventory.merger.canonic.ProviderSource;
 import org.guerrer0jaguar.inventory.merger.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/inventory")
 public class InventoryController {
     
     private static final Long STOCK_TO_FIX = 0L;
@@ -22,9 +24,38 @@ public class InventoryController {
     public InventoryController(ProductService service) {
         this.service = service;
     }
+    
+    @GetMapping("/inventory")
+    public List<Product> find(
+            @RequestParam( required = false) Double minRating,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Integer minStock,
+            @RequestParam(required = false) ProviderSource provider)
+    {
+        
+        ProductFilter filter = new ProductFilter();
+        
+        if(! Objects.isNull(minRating)) {
+            filter.setMinRating(minRating);
+        }
+        
+        if(! Objects.isNull(maxPrice)) {
+            filter.setMaxPrice(maxPrice);
+        }
+        
+        if(! Objects.isNull(minStock)) {
+            filter.setMinStock(minStock);
+        }               
+        
+        if(! Objects.isNull(provider)) {
+            filter.setProvider(provider);
+        }
+                
+        return service.findProducts(filter);
+    }
 
     @GetMapping("/syncronize")
-    public List<Product> findAll(){
+    public List<Product> syncronize(){
         return service.syncronizeProducts();
     }
     
@@ -33,6 +64,4 @@ public class InventoryController {
         request.setStockToFind(STOCK_TO_FIX);
         service.reestock(request);
     }
-    
-    
 }
