@@ -1,14 +1,18 @@
 package org.guerrer0jaguar.inventory.merger.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.guerrer0jaguar.inventory.merger.ReestockRequest;
 import org.guerrer0jaguar.inventory.merger.canonic.InventoryIntegrator;
 import org.guerrer0jaguar.inventory.merger.canonic.Product;
+import org.guerrer0jaguar.inventory.merger.canonic.ProductFilter;
 import org.guerrer0jaguar.inventory.merger.canonic.ProviderSource;
+import org.guerrer0jaguar.inventory.merger.repository.ProductFilterSpecification;
 import org.guerrer0jaguar.inventory.merger.repository.ProductRepository;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,5 +72,38 @@ public class ProductServiceImpl implements ProductService {
                 .updateStock(request.getStock(), request.getStockToFind());
 
         log.info("Reestock operation, products updated: {}", updated);
+    }
+
+    @Override
+    public List<Product> findProducts(
+            ProductFilter filter) {
+
+        Specification<Product> spec = Specification
+                .where(ProductFilterSpecification.idIsValid());
+
+        if (!Objects.isNull(filter.getMinRating())) {
+            spec = spec
+                    .and(ProductFilterSpecification
+                            .ratingIsGreaterThan(filter.getMinRating()));
+        }
+
+        if (!Objects.isNull(filter.getMaxPrice())) {
+            spec = spec
+                    .and(ProductFilterSpecification
+                            .priceIsLessThanOrEqualTo(filter.getMaxPrice()));
+        }
+
+        if (!Objects.isNull(filter.getMinStock())) {
+            spec = spec
+                    .and(ProductFilterSpecification
+                            .stockIsGreatherThan(filter.getMinStock()));
+        }
+        
+        if (!Objects.isNull(filter.getProvider())) {
+            spec = spec
+                    .and(ProductFilterSpecification.providerIsEqualTo(filter.getProvider()));
+        }
+
+        return repository.findAll(spec);
     }
 }

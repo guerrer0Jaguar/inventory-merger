@@ -35,12 +35,15 @@ class ProductServiceTest {
 
     @Value("classpath:products-for-product-test.json")
     private Resource productsFile;
+    
+    private List<Product> mockList;
+
         
     @Test
     void testSyncronizeProducts() throws IOException {
-        List<Product> mockList = extractMockData();
-        when(integrator.getProductsMerged()).thenReturn(mockList);
-
+        mockList = extractMockData();
+        when(integrator.getProductsMerged()).thenReturn(mockList);       
+        
         List<Product> products = service.syncronizeProducts();
         assertNotNull(products);
         assertFalse(products.isEmpty());
@@ -49,7 +52,7 @@ class ProductServiceTest {
         assertNotNull(anotherSave);
         assertTrue(anotherSave.isEmpty());
     }
-
+    
     private List<Product> extractMockData() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
