@@ -74,7 +74,9 @@ curl -X PATCH http://localhost:8080/api/v1/inventory/restock-zeros -H "Content-T
 QUERYING PRODUCTS
 
 Once the sync product process has finished, you can look up them executing a GET in the path /api/v1/inventory
-there are multiple filters that I'll explain in the following lines (I'm using curl, but it works with an Internet navigator).
+
+
+There are multiple filters that I'll explain in the following lines (I'm using curl, but it works with an Internet navigator).
 
 - Minimal rating: Shows the products which rating is above the given value. It is made with the param 'minRating', here is an example:
 
