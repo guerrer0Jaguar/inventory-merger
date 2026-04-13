@@ -78,7 +78,7 @@ Once the sync product process has finished, you can look up them executing a GET
 
 There are multiple filters that I'll explain in the following lines (I'm using curl, but it works with an Internet navigator).
 
-- Minimal rating: Shows the products which rating is above the given value. It is made with the param 'minRating', here is an example:
+- Minimal rating: Shows the products whose rating is above the given value. It's made with the param 'minRating', here is an example:
 
 ```shell
 curl http://localhost:8080/api/v1/inventory?minRating=4.8
