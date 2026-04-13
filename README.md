@@ -6,6 +6,9 @@ This is a microservice whose objective is to integrate two different sources (fa
 
 
 
+## Architecture and justification
+
+The architecture is built as a single microservice with functionality divided into packages. This is due to the highly related nature of the features. It might be possible to split it into more components after further analysis.
 ## Features
 
 - Sync process (scheduled to run every 10 min) to fetch data from external providers and integrate it into a single database.
