@@ -4,14 +4,25 @@ server:
     context-path: /api/v1
 
 spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;
+  jpa:
+    open-in-view: false    
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 100
   h2:
     console:
       enabled: true
   task:
     scheduling:
-      enabled: false
+      enabled: true
       thread-name-prefix: Product-Sync-
-      product-sync-fixed-rate: 20000
+      #time in miliseconds
+      product-sync-fixed-rate: 15000
 
 feign:
   client:
