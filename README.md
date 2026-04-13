@@ -2,13 +2,13 @@
 # inventory-merger
 
 
-This is a microservice which objective is integrate two different sources (fakestoreapi and dummyjson) of inventory data into a single one. It has a scheduled process that does the main functionality; some endpoints to query and update data are also included.
+This is a microservice whose objective is to integrate two different sources (fakestoreapi and dummyjson) of inventory data into a single source. It has a scheduled process that performs the main functionality; some endpoints to query and update data are also included.
 
 
 
 ## Features
 
-- Sync process (scheduled to run every 10 min) to fetch data from external providers and integrate them in one database.
+- Sync process (scheduled to run every 10 min) to fetch data from external providers and integrate it into a single database.
 
 - Endpoint to query data at:
 ```shell
@@ -26,7 +26,7 @@ http://localhost:8080/api/v1/inventory/restock-zeros
 - JDK 8.0.x (it doesn't work with recent java versions) 
 - Maven 3.9.x
 
-1. Clone or download the project at 
+1. Clone or download the project at:
 ```bash
   git clone https://github.com/guerrer0Jaguar/inventory-merger.git
   cd inventory-merger
@@ -42,7 +42,7 @@ mvn -clean install
 
 
 ## Usage/Examples
-Once the project is built, it runs with the following command (runs on port 8080):
+Once the project is built, it runs with the following command (on port 8080):
 ```shell
 /mvnw spring-boot:run
 ```
@@ -53,11 +53,11 @@ An alternative command if you want to run change the default port:
 
 FIXING PRODUCTS STOCK
 
-There's an endpoint to fix the product stock value to a given value, if those have an stock of zero.
-You need to provide the fixing value within the body of petition (PATCH) with the property 'stock', the following is an example:
+There is an endpoint to set the product stock to a specified value if it is zero.
+You need to provide the new value within the request body (PATCH) using the 'stock' property; see the following example:
 
 ```shell
-curl -X PATCH http://localhost:8080/api/v1/inventory/restock-zeros -H "Content-Type:application/json" -d '{"stock" : 1000}'
+curl -X PATCH "http://localhost:8080/api/v1/inventory/restock-zeros" -H "Content-Type:application/json" -d '{"stock" : 1000}'
 ```
 
 ```javaScript
@@ -76,9 +76,9 @@ QUERYING PRODUCTS
 Once the sync product process has finished, you can look up them executing a GET in the path /api/v1/inventory
 
 
-There are multiple filters that I'll explain in the following lines (I'm using curl, but it works with an Internet navigator).
+There are multiple filters that I'll explain in the following lines (I'm using curl, but it works with any web browser).
 
-- Minimal rating: Shows the products whose rating is above the given value. It's made with the param 'minRating', here is an example:
+- Minimum rating: Shows products whose rating is at least the given value. Use the 'minRating' parameter; here is an example:
 
 ```shell
 curl http://localhost:8080/api/v1/inventory?minRating=4.8
@@ -109,10 +109,10 @@ curl http://localhost:8080/api/v1/inventory?minRating=4.8
 "stock": 0
 },...
 ```
-- Max price: Get the products whose price is below the value indicated. It works with the word 'maxPrice' as follows:
+- Maximum price: Retrieves products whose price is at most the indicated value. Use the 'maxPrice' parameter as follows:
 
 ```shell
-curl http://localhost:8080/api/v1/inventory?maxPrice=1.29
+curl "http://localhost:8080/api/v1/inventory?maxPrice=1.29"
 ```
 ```javaScript
 [
@@ -143,7 +143,7 @@ curl http://localhost:8080/api/v1/inventory?maxPrice=1.29
 - Minimal stock: retrieve the products whose stock is at least the indicated value. You have to use the word 'minStock' :
 
 ```shell
-curl http://localhost:8080/api/v1/inventory?minStock=99
+curl "http://localhost:8080/api/v1/inventory?minStock=99"
 ```
 ```javaScript
 [
@@ -171,10 +171,10 @@ curl http://localhost:8080/api/v1/inventory?minStock=99
 }
 ]
 ```
-- Provider: It filters products by their original source. This filter works with the word 'provider' and it only accept the values 'ProviderA' and 'ProviderB', example:
+- Provider: Filters by their original source. Accepts either 'ProviderA' or 'ProviderB' via the 'provider' query parameter.
 
 ```shell
-curl http://localhost:8080/api/v1/inventory?provider=ProviderB
+curl "http://localhost:8080/api/v1/inventory?provider=ProviderB"
 ```
 
 ```javaScript
@@ -202,9 +202,9 @@ curl http://localhost:8080/api/v1/inventory?provider=ProviderB
 "stock": 0
 },....
 ```
-- Note: It worth mentioning that you can combine all these filters to refine your findings, for example:
+- Note: It's worth mentioning that you can combine all these filters to refine your search results, for example:
 ```shell
-curl http://localhost:8080/api/v1/inventory?provider=ProviderA&maxPrice=10&minRating=146
+curl "http://localhost:8080/api/v1/inventory?provider=ProviderA&maxPrice=10&minRating=146"
 ```
 ```javaScript
 [
