@@ -1,5 +1,5 @@
 .sdkmanrc
-inventory-merger.log
+inventory-merger.log*
 data
 HELP.md
 target/
