@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> syncronizeProducts() {
         log.info("starting...");
         List<Product> productsMerged = integrator.getProductsMerged();
-        log.info("fetched: {}", productsMerged.size());
+        log.info("Products from external providers fetched: {}", productsMerged.size());
 
         List<Product> productsFiltered = productsMerged
                 .stream()
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product> productsSaved = 
                 repository.saveAll(productsFiltered);
     
-        log.info("saved: {}", productsSaved.size());
+        log.info("Products from external providers saved: {}", productsSaved.size());
 
         return productsSaved;
     }
