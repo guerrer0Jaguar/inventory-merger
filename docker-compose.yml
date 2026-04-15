@@ -1,0 +1,12 @@
+version: "3.5"
+services:
+  inventory-merger:
+    image: inventory-merger
+    build:
+      context: .
+    ports:
+      - "8080:8080"      
+    volumes:
+      - ${PWD}:/usr/src/mymaven
+      #uncomment this line if you have maven installed locally
+      #- ${HOME}/.m2:/root/.m2
