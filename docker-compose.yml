@@ -5,7 +5,7 @@ services:
     build:
       context: .
     ports:
-      - "8080:8080"      
+      - "${APP_PORT:-8080}:8080"      
     volumes:
       - ${PWD}:/usr/src/mymaven
       #uncomment this line if you have maven installed locally
