@@ -26,8 +26,8 @@ http://localhost:8080/api/v1/inventory/restock-zeros
 ##  🚀 Installation
 
 ### Prerequisites
-- JDK 8.0.x (it doesn't work with recent java versions) 
-- Maven 3.9.x
+- JDK 8.0.x ( or Docker 29) 
+- Maven 3.9.x ( not required if you have Docker)
 
 1. Clone or download the project at:
 ```bash
@@ -36,7 +36,7 @@ http://localhost:8080/api/v1/inventory/restock-zeros
 ```
 
 
-2. Build the project:
+2. Build the project (optional if you have Docker, see the "Usage/Examples" section):
 ```bash
 mvn -clean install
 ```
@@ -45,14 +45,27 @@ mvn -clean install
 
 
 ## Usage/Examples
-Once the project is built, it runs with the following command (on port 8080):
+Once the project is built, it runs with the following command (by default on port 8080):
 ```shell
 /mvnw spring-boot:run
 ```
-An alternative command if you want to run change the default port:
+An alternative command if you want to change the default port:
 ```shell
 ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-Dserver.port=9090"
 ```
+
+If you have Docker installed, you can run the project with (by default on port 8080):
+```shell
+docker compose up
+```
+If you want to run it with a different port you can set it with the following enviroment variable, you must set it before run it, as this:
+```shell
+export APP_PORT=9090
+docker compose up
+```
+Once you get bored of this app, you can get rid of it by running the command:
+
+docker-compose down
 
 FIXING PRODUCTS STOCK
 
